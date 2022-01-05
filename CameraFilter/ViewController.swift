@@ -10,6 +10,10 @@ import RxSwift
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var selectedImageView: UIImageView!
+    
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -17,5 +21,15 @@ class ViewController: UIViewController {
     }
 
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let navC = segue.destination as? UINavigationController,
+              let photosCVC = navC.viewControllers.first as? PhotosCollectionViewController else {
+                  fatalError("Segue destionation is not found")
+              }
+        
+        photosCVC.selectedPhoto.subscribe(onNext: { [weak self] photo in
+            self?.selectedImageView.image = photo
+        }).disposed(by: disposeBag)
+    }
 }
 
