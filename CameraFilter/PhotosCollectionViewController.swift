@@ -39,7 +39,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         // help to get the image
         let manager = PHImageManager.default()
         
-        manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil) { image, _ in
+        manager.requestImage(for: asset, targetSize: CGSize(width: 120, height: 120), contentMode: .aspectFill, options: nil) { image, _ in
             DispatchQueue.main.async {
                 cell.photoImageView.image = image
             }
